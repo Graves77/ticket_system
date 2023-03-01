@@ -15,6 +15,4 @@
         <result property="endTime" column="end_time"/>
         <result property="deleteStatus" column="delete_status"/>
     </resultMap>
-
-
 </mapper>

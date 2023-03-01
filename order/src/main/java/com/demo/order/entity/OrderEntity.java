@@ -1,5 +1,6 @@
 package com.demo.order.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -15,14 +16,14 @@ import lombok.Data;
  * @date 2023-01-07 15:58:47
  */
 @Data
-@TableName("order")
+@TableName("`order`")
 public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
 	private Integer id;
 	/**
 	 * member id

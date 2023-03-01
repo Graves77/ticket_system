@@ -19,7 +19,6 @@ public class TicketCorsConfiguration {
         corsConfiguration.addAllowedOrigin("*");
         // 是否允许携带cookie跨域
         corsConfiguration.setAllowCredentials(true);
-
         // 任意url都要进行跨域配置
         source.registerCorsConfiguration("/**",corsConfiguration);
         return new CorsWebFilter(source);

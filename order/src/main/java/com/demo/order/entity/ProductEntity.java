@@ -1,14 +1,12 @@
-package com.demo.product.entity;
+package com.demo.order.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
-import org.springframework.boot.jackson.JsonComponent;
 
 /**
  * 
@@ -17,9 +15,8 @@ import org.springframework.boot.jackson.JsonComponent;
  * @email Graves@gmail.com
  * @date 2023-01-07 16:01:58
  */
-
 @Data
-@TableName("`product`")
+@TableName("product")
 public class ProductEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -60,6 +57,5 @@ public class ProductEntity implements Serializable {
 	 * 删除状态【0->未删除；1->已删除】
 	 */
 	private Integer deleteStatus;
-
 
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.demo.common.exception.BizCodeEnum;
 import com.demo.member.utils.JwtUtils;
+import com.demo.member.valid.loginGroup;
+import com.demo.member.valid.registerGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +27,18 @@ import com.demo.common.utils.R;
  * @date 2023-01-07 15:53:35
  */
 @RestController
-@RequestMapping("member/user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @RequestMapping("/test")
+    public R test(){
+        return R.ok("测试成功");
+    }
 
 
     /**
@@ -40,12 +47,10 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public R login(@RequestBody UserEntity user){
-
+    public R login(@Validated({loginGroup.class})@RequestBody UserEntity user){
 
         if(userService.login(user)){
             //用户登录
-            //long userId = userService.loginIdByphone(user);
             //生成token
             String token = jwtUtils.generateToken(user.getPhone());
             Map<String, Object> map = new HashMap<>();
@@ -62,13 +67,14 @@ public class UserController {
      * @return
      */
     @RequestMapping("/register")
-    public R register(@RequestBody UserEntity user){
+    public R register(@Validated({registerGroup.class}) @RequestBody UserEntity user){
         Integer exit = userService.selectByPhone(user.getPhone());
         if(exit!=null){
             return R.error(BizCodeEnum.PHONE_EXISTS_EXCEPTION.getCode(), BizCodeEnum.PHONE_EXISTS_EXCEPTION.getMsg());
         }
         else
         {
+            user.setStatus(0);
             userService.save(user);
             return R.ok("注册成功");
         }
@@ -97,16 +103,7 @@ public class UserController {
         return R.ok().put("user", user);
     }
 
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    //@RequiresPermissions("member:user:save")
-    public R save(@RequestBody UserEntity user){
-		userService.save(user);
 
-        return R.ok();
-    }
 
     /**
      * 修改
